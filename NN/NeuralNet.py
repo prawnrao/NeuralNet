@@ -147,7 +147,7 @@ class NeuralNet(object):
         else:
             return self.back_propogate(inputs, hidden, output, labels)
 
-    def batch_train(self, inputs_array, label_function=xor_logic,
+    def batch_train(self, inputs_array, label_function,
                     batch_size=100):
         """ Method used to train the neural net in batches"""
         for i in range(batch_size):

@@ -19,7 +19,7 @@ with open( 'batch_sigmoid.txt', 'w') as batch:
     batch.write("\t# of Batches: {}\n\n".format(num))
     for i in range(num):
         batch.write('Batch No. {}\n'.format(i+1))
-        nn.batch_train(bools, batch_size=size)
+        nn.batch_train(bools, xor_logic, batch_size=size)
         for b in bools:
             batch.write("{}\t".format(b))
             batch.write("{}\n".format(nn.predict(b)))
