@@ -2,7 +2,10 @@ import sys
 from random import random, choice
 import matplotlib.pyplot as plt
 sys.path.insert(1, '/Users/pranavrao/Documents/playground/NN')
-from NeuralNet import NeuralNet, bools, xor_logic, ReLU, sigmoid
+from NeuralNet import NeuralNet, bools, ReLU, sigmoid
+
+def xor_logic(inputs):
+    return [1] if inputs[0] + inputs[1] == 1 else [0]
 
 ### Batch Test Example (sigmoid) ###
 nn = NeuralNet(2,3,1)
@@ -21,7 +24,7 @@ with open( 'batch_sigmoid.txt', 'w') as batch:
             batch.write("{}\t".format(b))
             batch.write("{}\n".format(nn.predict(b)))
         batch.write('\n\n')
-batch.close()    
+batch.close()
 
 ### Batch Test Example (ReLU) ###
 nn = NeuralNet(2,3,1)

@@ -2,15 +2,6 @@ from Matrix import Matrix
 import math
 from random import choice
 
-def xor_logic(inputs):
-    return [1] if inputs[0] + inputs[1] == 1 else [0]
-
-def and_logic(inputs):
-    return [1] if inputs[0] + inputs[1] == 2 else [0]
-
-def or_logic(inputs):
-    return [1] if inputs[0] + inputs[1] != 0 else [0]
-
 bools = [[0, 0],
          [0, 1],
          [1, 0],
