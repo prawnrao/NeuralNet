@@ -12,9 +12,14 @@ I built this toy network for my own understanding of how of neural networks are 
 * Xor
 
 ## Working on:
-*  Google Quickdraw classification
-*  Refactor NeuralNet.py to allow multiple hidden layers
+*  Test with [Theano](http://deeplearning.net/software/theano/)
+*  Google [Quickdraw](https://quickdraw.withgoogle.com) classification
 
 ## Future Work:
-
+*  Refactor NeuralNet.py to allow multiple hidden layers
 *  MINST Handwritten numbers
+
+
+## Further Reading
+* Machine Learning for Artists [ML4A](https://ml4a.github.io/ml4a/how_neural_networks_are_trained/)
+* Welch Labs Video Series [Neural Networks Demystified](https://www.youtube.com/watch?v=bxe2T-V8XRs&list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU)
