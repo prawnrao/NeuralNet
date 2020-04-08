@@ -29,14 +29,6 @@ class Matrix(object):
         """ Scalar power"""
         return self.apply(lambda x: x ** val)
     
-    def __min(self):
-        """ Minimum element of matrix"""
-        return min(self.to_array())
-    
-    def __max(self):
-        """ Maximum element of matrix"""
-        return max(self.to_array())
-    
     def __repr__(self):
         """ Return method"""
         string = "Matrix {}".format(self.shape)
@@ -98,6 +90,16 @@ class Matrix(object):
         """ Negative of matrix"""
         return self * -1
     
+    @property
+    def __min(self):
+        """ Minimum element of matrix"""
+        return min(self.to_array())
+    
+    @property
+    def __max(self):
+        """ Maximum element of matrix"""
+        return max(self.to_array())
+    
     def add(self, b, inplace=False):
         """ Sum of 2 matrices, can return or perform inplace"""
         if not inplace:
@@ -125,11 +127,17 @@ class Matrix(object):
                 arr.append(self.data[i][j])
         return arr
 
-    def normalise(self, maximum):
+    def range_normalise(self, maximum=None, minimum=None):
         """ Elements are made to range between 0 -> 1
             To be used for positive numbers only.
         """
-        return self.apply(lambda x: x / maximum)
+        if maximum is None:
+            maximum = self.__max
+            
+        if minimum is None:
+            minimum = self.__min
+            
+        return self.apply(lambda x: (x - minimum) / (maximum  - minimum))
         
     def apply(self, func, inplace=False):
         """ Applies a function to each element of the matrix, can return or perform inplace"""
