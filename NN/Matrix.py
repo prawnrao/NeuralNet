@@ -13,33 +13,29 @@ class Matrix(object):
     
     def __mul__(self, val):
         """ Scalar multiplication"""
-        m = Matrix(self.rows, self.cols)
-        for i in range(self.rows):
-            for j in range(self.cols):
-                m.data[i][j] = self.data[i][j] * val
-        return m
+        return self.apply(lambda x: x * val)
     
     def __rmul__(self, val):
         return self.__mul__(val)
     
     def __add__(self, val):
         """ Scalar addition"""
-        m = Matrix(self.rows, self.cols)
-        for i in range(self.rows):
-            for j in range(self.cols):
-                m.data[i][j] = self.data[i][j] + val
-        return m
+        return self.apply(lambda x: x + val)
     
     def __radd__(self, val):
         return self.__add__(val)
     
     def __pow__(self, val):
         """ Scalar power"""
-        m = Matrix(self.rows, self.cols)
-        for i in range(self.rows):
-            for j in range(self.cols):
-                m.data[i][j] = self.data[i][j] ** val
-        return m
+        return self.apply(lambda x: x ** val)
+    
+    def __min(self):
+        """ Minimum element of matrix"""
+        return min(self.to_array())
+    
+    def __max(self):
+        """ Maximum element of matrix"""
+        return max(self.to_array())
     
     def __repr__(self):
         """ Return method"""
@@ -47,7 +43,7 @@ class Matrix(object):
         for i in range(self.rows):
             string += "\n {}".format(self.data[i])
         return string 
-
+    
     def __str__(self):
         """ To string method"""
         string = ""
@@ -100,7 +96,7 @@ class Matrix(object):
     @property
     def negative(self):
         """ Negative of matrix"""
-        return self.__mul__(-1)
+        return self * -1
     
     def add(self, b, inplace=False):
         """ Sum of 2 matrices, can return or perform inplace"""
@@ -129,11 +125,11 @@ class Matrix(object):
                 arr.append(self.data[i][j])
         return arr
 
-    def normalise(self):
-        """ Sum of all elements is set to 1"""
-        for i in range(self.rows):
-            for j in range(self.cols):
-                self.data[i][j] = self.data[i][j] / self.total
+    def normalise(self, maximum):
+        """ Elements are made to range between 0 -> 1
+            To be used for positive numbers only.
+        """
+        return self.apply(lambda x: x / maximum)
         
     def apply(self, func, inplace=False):
         """ Applies a function to each element of the matrix, can return or perform inplace"""
@@ -143,10 +139,10 @@ class Matrix(object):
                 for j in range(self.cols):
                     m.data[i][j] = func(self.data[i][j])
             return m
-        
-        for i in range(self.rows):
-            for j in range(self.cols):
-                self.data[i][j] = func(self.data[i][j])
+        else:
+            for i in range(self.rows):
+                for j in range(self.cols):
+                    self.data[i][j] = func(self.data[i][j])
                 
     @staticmethod
     def from_array(arr: list):
@@ -160,10 +156,7 @@ class Matrix(object):
     def random_matrix(rows: int, cols: int):
         """ Matrix of random numbers between 0, 1"""
         m = Matrix(rows, cols)
-        for i in range(rows):
-            for j in range(cols):
-                m.data[i][j] = round((random() * 2) - 1, 3)
-        return m
+        return m.apply(lambda x: round((random() * 2) - 1, 3))
     
     @staticmethod
     def matmul(a, b):
