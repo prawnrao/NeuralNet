@@ -1,0 +1,12 @@
+Hyperparameters: 
+	Inputs: 2
+	Hidden: 3
+	output: 1
+	Activation: ReLU
+	Learning Rate: 0.2
+	Size: 10000
+
+[0, 0]	0.49405539994025266
+[0, 1]	0.49405539994025266
+[1, 0]	0.9976055884125886
+[1, 1]	0.0033891557406724453

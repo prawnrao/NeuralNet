@@ -1,0 +1,12 @@
+Hyperparameters: 
+	Inputs: 2
+	Hidden: 3
+	output: 1
+	Activation: Sigmoid
+	Learning Rate: 0.2
+	Size: 10000
+
+[0, 0]	0.013652240630116972
+[0, 1]	0.9264159250346301
+[1, 0]	0.9271622807190919
+[1, 1]	0.12162774950106467
