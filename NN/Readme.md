@@ -4,15 +4,17 @@ My inspiration for this is The Coding Train (Daniel Shiffman) and his [Toy Neura
 
 I also referenced the 3Blue1Brown's (Grant Sanderson's) [video series](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi) on YouTube, which is where I understood most of the underlying mathematics of Neural Networks.
 
-Tariq Rashid's book [Make Your Own Neural Network](https://www.amazon.com/Make-Your-Own-Neural-Network-ebook/dp/B01EER4Z4G/) is also an excellent source of in depth underlying mathematics with more than enough explanation to understand the derivations. He also has a [github repo](https://github.com/makeyourownneuralnetwork/makeyourownneuralnetwork) within which contains the code he has referenced in his book.
+Tariq Rashid's book [Make Your Own Neural Network](https://www.amazon.com/Make-Your-Own-Neural-Network-ebook/dp/B01EER4Z4G/) is also an excellent source of in depth underlying mathematics with more than enough explanation to understand the derivations. He also has a [github repo](https://github.com/makeyourownneuralnetwork/makeyourownneuralnetwork) within which is the code he has referenced in his book.
+
+I built this toy network for my own understanding of how of neural networks are able to solve problems from the ground up. This will build my foundation to explore further and attempt to solve more complex problems in the future, probably with a more optimised library, *cough cough* TensorFlow *cough cough*.
 
 ## Solved:
-* Solving Xor
+* Xor
 
 ## Working on:
 *  Google Quickdraw classification
+*  Refactor NeuralNet.py to allow multiple hidden layers
 
 ## Future Work:
 
 *  MINST Handwritten numbers
-*  Refactor Code to allow more than 1 hidden layer.
