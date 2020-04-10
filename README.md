@@ -10,13 +10,14 @@ I built this toy network for my own understanding of how of neural networks are 
 
 ## Solved:
 * Xor
+* Added Numpy Compatibility
+* Added mutiple hidden layer Compatibility
 
 ## Working on:
 *  Test with [Theano](http://deeplearning.net/software/theano/)
 *  Google [Quickdraw](https://quickdraw.withgoogle.com) classification
 
 ## Future Work:
-*  Refactor NeuralNet.py to allow multiple hidden layers
 *  MINST Handwritten numbers
 
 
