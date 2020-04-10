@@ -4,21 +4,16 @@ from ActivationFunction import sigmoid
 class NeuralNet(object):
     """Neural Network Object"""
 
-    def __init__(self, input_nodes:int, hidden_nodes:list, output_nodes:int,
-                 activation_func=sigmoid, learning_rate=0.1):
+    def __init__(self, shape:list, activation_func=sigmoid, learning_rate=0.1):
         """Constuctor for the neural network"""
-        self.input_nodes = input_nodes
-        self.hidden_nodes = hidden_nodes
-        self.output_nodes = output_nodes
+        self.input_nodes = shape[0]
+        self.output_nodes = shape[-1]
+        self.hidden_nodes = shape[1:-1]
 
-        self.hh_weights = []
-        self.hidden_bias = []
-
-        self.ih_weights = np.random.rand(self.hidden_nodes[0], self.input_nodes)
-        for i in range(self.hidden_nodes):
-            self.hidden_bias[i] = np.random.rand(self.hidden_nodes, 1)
-        self.ho_weights = np.random.rand(self.output_nodes, self.hidden_nodes[-1])
-        self.output_bias = np.random.rand(self.output_nodes, 1)
+        self.biases = [np.random.rand(size, 1) for size in shape]
+        del self.biases[0]
+        self.weights = [np.random.rand(shape[i], shape[i-1]) for i in \
+                        range(1:len(shape))]
 
         self.__activation_function = activation_func
         self.__learning_rate = learning_rate
@@ -46,17 +41,15 @@ class NeuralNet(object):
             H = activation(W_ih x I + bias_h)
             O = sigmoid(W_ho x H + bias_o)
         """
-        # Hidden nodes values
-        hidden = np.matmul(self.ih_weights, inputs)
-        hidden = hidden + self.hidden_bias
-        hidden = self.activation_function.func(hidden)
+        forward = [inputs]
+        for i in range(self.weights):
+            val = np.matmul(self.weights, forward[i])
+            val = val + self.biases[i]
+            val = self.activation_function.func(val)
+            forward[i+1] = val
 
-        # Output nodes values
-        output = np.matmul(self.ho_weights, hidden)
-        output = output + self.output_bias
-        output = self.activation_function.func(output)
-
-        return hidden, output
+        del forward[0]
+        return forward
 
     def errors(self, output, labels):
         """ Calcultes the errors for the output and hidden layers"""
