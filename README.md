@@ -14,10 +14,12 @@ I built this toy network for my own understanding of how of neural networks are 
 * Added mutiple hidden layer Compatibility
 
 ## Working on:
-*  Test with [Theano](http://deeplearning.net/software/theano/)
-*  Google [Quickdraw](https://quickdraw.withgoogle.com) classification
+* Unit Testing
+* Better Docstrings for function
 
 ## Future Work:
+*  Test with [Theano](http://deeplearning.net/software/theano/)
+*  Google [Quickdraw](https://quickdraw.withgoogle.com) classification
 *  MINST Handwritten numbers
 
 
