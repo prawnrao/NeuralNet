@@ -47,11 +47,10 @@ class NeuralNet(object):
             val = val + self.biases[i]
             val = self.activation_function.func(val)
             forward[i+1] = val
-        del forward[0]
-        
+
         return forward
 
-    def calculate_errors(self, forward, labels):
+    def calculate_errors(self, output, labels):
         """ Calcultes the errors for the output and hidden layers"""
         labels = np.array(labels)
         output_errors = labels - forward[-1]
@@ -62,39 +61,40 @@ class NeuralNet(object):
 
         return errors
 
-    def back_propogate(self, inputs, hidden, output, labels):
+    def back_propogate(self, forward, labels):
         """ Propogates and assigns the weights back from the outputs
             to the inputs
         """
-        hidden_errors, output_errors = self.calculate_errors(output, labels)
+        backward = reversed(forward)
+        errors = self.calculate_errors(forward[-1], labels)
+        gradients = []
+        gradients_w = []
 
-        output_gradient = sigmoid.dfunc(output)
-        output_gradient = self.learning_rate * output_errors * output_gradient
-        delta_w_ho = np.matmul(output_gradient, hidden.T)
+        for i, b in enumerate(backward):
+            grad = self.activation_func.dfunc(b)
+            grad = self.learning_rate * errors[i] * grad
+            grad_w = np.matmul(grad, backward[i+1].T)
 
-        hidden_gradient = self.activation_function.dfunc(hidden)
-        hidden_gradient = self.learning_rate * hidden_errors * hidden_gradient
-        delta_w_ih = np.matmul(hidden_gradient, inputs.T)
+            gradients[i] = grad
+            gradients_w[i] = grad_w
 
-        return hidden_gradient, delta_w_ih, output_gradient, delta_w_ho
+        return gradients, gradients_w
 
 
     def train(self, inputs, labels, stocastic=True):
         """ Trains the neural net, with the option of stocastic
             or batch training
         """
-        #Converting inputs to matrix object
         inputs = np.vstack(inputs)
-        hidden, output = self.feed_forward(inputs)
-        if stocastic:
-            hidden_gradient, delta_w_ih, output_gradient, delta_w_ho = \
-            self.back_propogate(inputs, hidden, output, labels)
-            self.output_bias = self.output_bias + output_gradient
-            self.ho_weights = self.ho_weights + delta_w_ho
-            self.hidden_bias = self.hidden_bias + hidden_gradient
-            self.ih_weights = self.ih_weights + delta_w_ih
-        else:
-            return self.back_propogate(inputs, hidden, output, labels)
+        forward = self.feed_forward(inputs)
+
+        gradients, gradients_w = self.back_propogate(forward, labels)
+
+        for i, grad in enumerate(gradients):
+            self.biases[-i-1] + grad
+
+        for i, grad in enumerate(gradients_w):
+            self.weights[-i-1] + grad
 
     def batch_train(self, inputs_array, label_function,
                     batch_size=100):
