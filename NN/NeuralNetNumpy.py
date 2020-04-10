@@ -42,28 +42,31 @@ class NeuralNet(object):
             O = sigmoid(W_ho x H + bias_o)
         """
         forward = [inputs]
-        for i in range(self.weights):
-            val = np.matmul(self.weights, forward[i])
+        for i, w in enumerate(self.weights):
+            val = np.matmul(w, forward[i])
             val = val + self.biases[i]
             val = self.activation_function.func(val)
             forward[i+1] = val
-
         del forward[0]
+        
         return forward
 
-    def errors(self, output, labels):
+    def calculate_errors(self, forward, labels):
         """ Calcultes the errors for the output and hidden layers"""
         labels = np.array(labels)
-        output_errors = labels - output
-        hidden_errors = np.matmul(self.ho_weights.T, output_errors)
+        output_errors = labels - forward[-1]
+        errors = [output_errors]
 
-        return hidden_errors, output_errors
+        for i, w in enumerate(reversed(self.weights)):
+            val = np.matmul(errors[i], w.T)
+
+        return errors
 
     def back_propogate(self, inputs, hidden, output, labels):
         """ Propogates and assigns the weights back from the outputs
             to the inputs
         """
-        hidden_errors, output_errors = self.errors(output, labels)
+        hidden_errors, output_errors = self.calculate_errors(output, labels)
 
         output_gradient = sigmoid.dfunc(output)
         output_gradient = self.learning_rate * output_errors * output_gradient
