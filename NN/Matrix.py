@@ -1,9 +1,11 @@
 from random import random
 
+
 class Matrix(object):
     """ Matrix object which is used to compute math
         needed for the NeuralNet class.
     """
+
     def __init__(self, rows: int, cols: int):
         self.__rows = rows
         self.__cols = cols
@@ -139,7 +141,7 @@ class Matrix(object):
         if minimum is None:
             minimum = self.__min
 
-        return self.apply(lambda x: (x - minimum) / (maximum  - minimum))
+        return self.apply(lambda x: (x - minimum) / (maximum - minimum))
 
     def apply(self, func, inplace=False):
         """ Applies a function to each element of the matrix, can return or
@@ -185,7 +187,7 @@ class Matrix(object):
     @staticmethod
     def I(size: int):
         """ Identity Matrix for a given size"""
-        m = Matrix(size, size)
+        m = Matrix(size, size)·
         for i in range(size):
             m.data[i][i] = 1
         return m

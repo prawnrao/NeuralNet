@@ -1,10 +1,11 @@
 import numpy as np
 from ActivationFunction import sigmoid
 
+
 class NeuralNet(object):
     """Neural Network Object"""
 
-    def __init__(self, shape:list, activation_function=sigmoid, learning_rate=0.1):
+    def __init__(self, shape: list, activation_function=sigmoid, learning_rate=0.1):
         """Constuctor for the neural network"""
         self.input_nodes = shape[0]
         self.output_nodes = shape[-1]
@@ -12,7 +13,7 @@ class NeuralNet(object):
 
         self.biases = [np.zeros([size, 1]) for size in shape]
         del self.biases[0]
-        self.weights = [np.random.rand(shape[i], shape[i-1]) for i in \
+        self.weights = [np.random.rand(shape[i], shape[i-1]) for i in
                         range(1, len(shape))]
 
         self.__activation_function = activation_function
@@ -81,7 +82,6 @@ class NeuralNet(object):
 
         return gradients, gradients_w
 
-
     def train(self, inputs, labels, stocastic=True):
         """ Trains the neural net, with the option of stocastic
             or batch training
@@ -90,7 +90,7 @@ class NeuralNet(object):
         forward = self.feed_forward(inputs)
 
         gradients, gradients_w = self.back_propogate(forward, labels)
-        
+
         for i, grad in enumerate(gradients):
             self.biases[-i-1] = self.biases[-i-1] + grad
 
@@ -105,7 +105,7 @@ class NeuralNet(object):
     def __repr__(self):
         string = ""
         string += "\tInputs: {}".format(self.input_nodes)
-        string +="\n\tHidden: {}".format(self.hidden_nodes)
+        string += "\n\tHidden: {}".format(self.hidden_nodes)
         string += "\n\toutput: {}".format(self.output_nodes)
         string += "\n\tActivation: {}".format(self.__activation_function.name)
         string += "\n\tLearning Rate: {}".format(self.__learning_rate)

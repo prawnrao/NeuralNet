@@ -2,17 +2,21 @@ from Matrix import Matrix
 import math
 from random import choice
 
+
 def __sig(x):
     """f(x) = 1 / (1 + e^(-x))"""
     return 1 / (1 + math.e**(-x))
+
 
 def __dsig(x):
     """f'(x) = f(x) * (1 - f(x))"""
     return x * (1 - x)
 
+
 def __relu(x):
     """f(x) = 0 for x < 0 \n\t     = x for x >= 0"""
     return max(0, x)
+
 
 def __drelu(x):
     """f'(x) = 0 for x <= 0 \n\t      = 1 for x >= 0"""
@@ -21,6 +25,7 @@ def __drelu(x):
 
 class ActivationFunction(object):
     """Activation Function Object"""
+
     def __init__(self, func, dfunc, name=""):
         """
         Constructor for activation function object
@@ -39,9 +44,11 @@ class ActivationFunction(object):
                                                self.func.__doc__,
                                                self.dfunc.__doc__)
 
+
 sigmoid = ActivationFunction(__sig, __dsig, 'Sigmoid')
 
 ReLU = ActivationFunction(__relu, __drelu, 'ReLU')
+
 
 class NeuralNet(object):
     """Neural Network Object"""
@@ -124,17 +131,16 @@ class NeuralNet(object):
 
         return hidden_gradient, delta_w_ih, output_gradient, delta_w_ho
 
-
     def train(self, inputs, labels, stocastic=True):
         """ Trains the neural net, with the option of stocastic
             or batch training
         """
-        #Converting inputs to matrix object
+        # Converting inputs to matrix object
         inputs = Matrix.from_array(inputs)
         hidden, output = self.feed_forward(inputs)
         if stocastic:
             hidden_gradient, delta_w_ih, output_gradient, delta_w_ho = \
-            self.back_propogate(inputs, hidden, output, labels)
+                self.back_propogate(inputs, hidden, output, labels)
             self.output_bias.add(output_gradient, inplace=True)
             self.ho_weights.add(delta_w_ho, inplace=True)
             self.hidden_bias.add(hidden_gradient, inplace=True)
@@ -165,7 +171,6 @@ class NeuralNet(object):
         self.hidden_bias.add(hidden_gradient, inplace=True)
         self.ho_weights.add(delta_w_ho, inplace=True)
 
-
     def predict(self, inputs):
         """ Method to test the neural net for a given input"""
         inputs = Matrix.from_array(inputs)
@@ -174,7 +179,7 @@ class NeuralNet(object):
     def __repr__(self):
         string = ""
         string += "\tInputs: {}".format(self.input_nodes)
-        string +="\n\tHidden: {}".format(self.hidden_nodes)
+        string += "\n\tHidden: {}".format(self.hidden_nodes)
         string += "\n\toutput: {}".format(self.output_nodes)
         string += "\n\tActivation: {}".format(self.__activation_function.name)
         string += "\n\tLearning Rate: {}".format(self.__learning_rate)
