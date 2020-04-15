@@ -12,14 +12,14 @@ I built this toy network for my own understanding of how of neural networks are 
 * Xor
 * Added Numpy Compatibility
 * Added mutiple hidden layer Compatibility
+*  Google [Quickdraw](https://quickdraw.withgoogle.com) classification (3 categories)
 
 ## Working on:
-* Unit Testing
-* Better Docstrings for function
+* Unit Testing of matrix class
+* Better Docstrings for functions
 
 ## Future Work:
 *  Test with [Theano](http://deeplearning.net/software/theano/)
-*  Google [Quickdraw](https://quickdraw.withgoogle.com) classification
 *  MINST Handwritten numbers
 
 
