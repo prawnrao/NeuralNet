@@ -187,7 +187,7 @@ class Matrix(object):
     @staticmethod
     def I(size: int):
         """ Identity Matrix for a given size"""
-        m = Matrix(size, size)·
+        m = Matrix(size, size)
         for i in range(size):
             m.data[i][i] = 1
         return m

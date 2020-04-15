@@ -1,8 +1,7 @@
-from NeuralNet import NeuralNet, sigmoid
-import sys
-from random import random, choice
 import matplotlib.pyplot as plt
-sys.path.insert(1, '/Users/pranavrao/Documents/playground/NN')
+from random import random, choice
+from NN.NeuralNet import NeuralNet, sigmoid
+
 
 bools = [
     [0, 0],

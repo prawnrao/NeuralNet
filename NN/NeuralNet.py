@@ -1,4 +1,4 @@
-from Matrix import Matrix
+from NN.Matrix import Matrix
 import math
 from random import choice
 

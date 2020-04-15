@@ -1,5 +1,5 @@
 import numpy as np
-from ActivationFunction import sigmoid
+from NN.ActivationFunction import sigmoid
 
 
 class NeuralNet(object):
