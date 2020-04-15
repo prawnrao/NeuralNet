@@ -1,4 +1,5 @@
 from numpy import e as exp
+from numpy import vectorize
 
 
 def __sig(x):
@@ -13,7 +14,7 @@ def __dsig(x):
 
 def __relu(x):
     """f(x) = 0 for x < 0 \n\t     = x for x >= 0"""
-    return max(0, x)
+    return x if x > 0 else 0
 
 
 def __drelu(x):
@@ -45,4 +46,4 @@ class ActivationFunction(object):
 
 sigmoid = ActivationFunction(__sig, __dsig, 'Sigmoid')
 
-ReLU = ActivationFunction(__relu, __drelu, 'ReLU')
+ReLU = ActivationFunction(vectorize(__relu), vectorize(__drelu), 'ReLU')

@@ -13,7 +13,7 @@ class NeuralNet(object):
 
         self.biases = [np.zeros([size, 1]) for size in shape]
         del self.biases[0]
-        self.weights = [np.random.rand(shape[i], shape[i-1]) for i in
+        self.weights = [np.random.rand(shape[i], shape[i-1]) * 2 - 1 for i in
                         range(1, len(shape))]
 
         self.__activation_function = activation_function
@@ -53,7 +53,7 @@ class NeuralNet(object):
 
     def calculate_errors(self, output, labels):
         """ Calcultes the errors for the output and hidden layers"""
-        labels = np.array(labels)
+        labels = np.vstack(labels)
         output_errors = labels - output
         errors = [output_errors]
 
@@ -100,13 +100,14 @@ class NeuralNet(object):
     def predict(self, inputs):
         """ Method to test the neural net for a given input"""
         inputs = np.vstack(inputs)
+
         return self.feed_forward(inputs)[-1]
 
     def __repr__(self):
         string = ""
         string += "\tInputs: {}".format(self.input_nodes)
         string += "\n\tHidden: {}".format(self.hidden_nodes)
-        string += "\n\toutput: {}".format(self.output_nodes)
+        string += "\n\tOutput: {}".format(self.output_nodes)
         string += "\n\tActivation: {}".format(self.__activation_function.name)
         string += "\n\tLearning Rate: {}".format(self.__learning_rate)
 
